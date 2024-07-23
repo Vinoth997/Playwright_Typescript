@@ -8,6 +8,7 @@ export class LoginPage{
    readonly passwordTextField : Locator;
    readonly loginButton : Locator;
    readonly pageTitle: Locator;
+   readonly errorStatement : Locator;
 
     constructor(page:Page){
         this.page = page;
@@ -15,6 +16,7 @@ export class LoginPage{
         this.passwordTextField = page.locator("#password");
         this.loginButton = page.locator("#login-button");
         this.pageTitle = page.locator(".app_logo");
+        this.errorStatement = page.locator("h3[data-test='error']");
     }
 
     async openApplication(){
@@ -31,7 +33,8 @@ export class LoginPage{
         await expect(this.pageTitle).toHaveText(pageTitleText);
     }
 
-    async verifyUnSuccessfullLogin(pageTitleText:string){
-        await expect(this.pageTitle).toHaveText(pageTitleText);
+    async verifyUnSuccessfullLogin(errorText:string){
+        await expect(this.errorStatement).toBeVisible();
+        await expect(this.errorStatement).toContainText(errorText);
     }
 }

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { delay } from "../tests/utils";
+import { delay } from "../utils/utils";
 
 test("Handling new tab", async ({ context }) => {
   const page = await context.newPage();
@@ -15,7 +15,7 @@ test("Handling new tab", async ({ context }) => {
   const category = newPage.locator("#combo1");
   const submitBtn = newPage.locator("[name=submitbutton]");
 
-  await category.selectOption({value: "3"});
+  await category.selectOption({ value: "3" });
   await submitBtn.click();
 
   await delay(3000);
