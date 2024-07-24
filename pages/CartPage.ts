@@ -1,12 +1,10 @@
 import { Page, expect, Locator } from "@playwright/test";
-import { HomePage } from "./HomePage";
 
 export class CartPage {
   readonly page: Page;
   readonly cartIcon: Locator;
   readonly cartQuantity: Locator;
   readonly cartProductName: Locator;
-  readonly homePage: HomePage;
 
   constructor(page: Page) {
     this.page = page;
@@ -15,13 +13,11 @@ export class CartPage {
     this.cartProductName = page.locator(
       ".cart_item_label .inventory_item_name"
     );
-    this.homePage = new HomePage(this.page);
   }
 
-  async clickCartAndValidate(quatityCount: number) {
+  async clickCartAndValidate(quatityCount: number, expectedProduct: string) {
     await this.cartIcon.click();
     await expect(this.cartQuantity).toHaveCount(quatityCount);
-    const homePage = new HomePage(this.page);
-    await expect(await this.cartProductName.textContent()).toEqual(this.homePage.getSelectedProductName());
+    await expect(await this.cartProductName.textContent()).toEqual(expectedProduct);
   }
 }

@@ -11,6 +11,6 @@ test("Cart Verification", async ({ page }) => {
     await loginPage.openApplication();
     await loginPage.login("standard_user", "secret_sauce");
     await homePage.addProductToCart("Sauce Labs Onesie");
-    await cartPage.clickCartAndValidate(1);
+    await cartPage.clickCartAndValidate(1, homePage.getSelectedProductName());
     await delay(3000);
 });
