@@ -9,8 +9,13 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.45.3",
+    "@types/faker": "^6.6.9",
     "@types/node": "^20.14.1",
     "playwright": "^1.44.1",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "csv-parse": "^5.5.6"
   }
 }

@@ -10,6 +10,7 @@ import { defineConfig, devices } from "@playwright/test";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  // globalSetup: "./global-setup.ts",
   testDir: "./",
   // testMatch: ["**/*.spec.ts"],
   /* Run tests in files in parallel */
@@ -19,7 +20,7 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : 5,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [["html", { open: "always" }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -31,23 +32,30 @@ export default defineConfig({
     screenshot: "on",
     video: "retain-on-failure",
     trace: "on",
+    headless: false,
+    // storageState: "./playwright/.auth/global_auth.json",
   },
 
   /* Configure projects for major browsers */
   timeout: 60000, // Default timeout for all actions (60 seconds)
   projects: [
+    // {
+    //   name: "setup",
+    //   testMatch: "global.setup.ts",
+    // },
     {
       name: "chromium",
+      // dependencies: ["setup"],
       use: {
         ...devices["Desktop Chrome"],
         launchOptions: {
           slowMo: 1000, // a 1000 milliseconds pause before each operation
         },
-        viewport: { width: 1360, height: 768 }, // Set the screen resolution
-        headless: false, // Run in headful mode
+        viewport: { width: 1360, height: 768 }, // Set the screen resolution // Run in headful mode
         ignoreHTTPSErrors: true, // Ignore HTTPS errors
         video: "retain-on-failure", // Record video on test failure
         navigationTimeout: 60000, // Default navigation timeout (60 seconds)
+        // storageState: "./playwright/.auth/global_auth.json",
       },
     },
 
@@ -56,13 +64,12 @@ export default defineConfig({
     //   use: {
     //     ...devices["Desktop Firefox"],
     //     launchOptions: {
-    //       slowMo: 1000, // a 1000 milliseconds pause before each operation
+    //       slowMo: 100, // a 1000 milliseconds pause before each operation
     //     },
     //     viewport: { width: 1360, height: 768 }, // Set the screen resolution
-    //     headless: false, // Run in headful mode
     //     ignoreHTTPSErrors: true, // Ignore HTTPS errors
     //     video: "retain-on-failure", // Record video on test failure
-    //     navigationTimeout: 120000, // Increase navigation timeout to 120 seconds
+    //     navigationTimeout: 60000, // Increase navigation timeout to 120 seconds
     //   },
     // },
 

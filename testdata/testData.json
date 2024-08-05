@@ -1,0 +1,20 @@
+[
+    {
+        "fname": "test1",
+        "mname": "data1",
+        "lname": "value1",
+        "email": "testvalue1@mail.com"
+    },
+    {
+        "fname": "test2",
+        "mname": "data2",
+        "lname": "value2",
+        "email": "testvalue2@mail.com"
+    },
+    {
+        "fname": "test3",
+        "mname": "data3",
+        "lname": "value3",
+        "email": "testvalue3@mail.com"
+    }
+]
