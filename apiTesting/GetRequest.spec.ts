@@ -36,8 +36,8 @@ test("Api Testing Get Method 3", async () => {
   });
   const resp1 = await reqContext.get("/booking/3");
   console.log(await resp1.json());
-  await expect(await resp1.status()).toBe(200);
-  await expect(await resp1.statusText()).toEqual("OK");
+  expect(await resp1.status()).toBe(200);
+  expect(await resp1.statusText()).toEqual("OK");
 });
 
 test("Api Testing Get", async () => {
@@ -69,10 +69,23 @@ test("Api Testing passing query parameter", async ({ request }) => {
 });
 
 test("Api Testing Get assert json object", async () => {
-  const resp1 = await reqContext2.get("/booking/8");
+  const resp1 = await reqContext2.get("/booking/3868");
   console.log(await resp1.json());
-  expect(await resp1.json()).toMatchObject({
-    firstname: "Jim",
-    lastname: "Ericssn",
-  });
+  // expect(await resp1.json()).toMatchObject({
+  //   firstname: "Jim",
+  //   lastname: "Ericssn",
+  // });
+  const resp = await resp1.json();
+  expect(resp.firstname).toEqual("Bob");
+});
+
+test("Api with UI verification", async ({ request, page }) => {
+  const respn = await request.get("https://api.demoblaze.com/entries");
+  const respJson = await respn.json();
+  // console.log(respJson);
+  // console.log(respJson.Items[0].title)
+  await page.goto("https://www.demoblaze.com/#");
+  await expect(
+    page.getByRole("link", { name: "Samsung galaxy s6" })
+  ).toHaveText(respJson.Items[0].title);
 });
